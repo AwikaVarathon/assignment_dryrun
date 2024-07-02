@@ -1,0 +1,9 @@
+*.png
+*.xml
+*.html
+SeleniumTestability.log
+**/.DS_Store
+**/._.DS_Store
+.pabotsuitenames
+logs/*
+*.log

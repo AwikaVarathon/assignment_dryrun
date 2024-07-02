@@ -9,12 +9,14 @@ pipeline {
     stages {
         stage('Dryrun CICD website training') {
             steps {
-                echo 'Dyrun CICD Dryrun CICD website Training'
+                echo 'Dryrun CICD Dryrun CICD website Training'
                 script{
+                    echo "Dryrun with pabot"
+                    sh "pabot --pabotlib ${CONCURRENT} --dryrun  --outputdir testResultWeb ${TESTPATH}"
+                    echo "Done Dryrun with pabot"
                     common = load "common.groovy"
                     common.updateGithubStatus("pending")
-                    sh "pabot --pabotlib ${CONCURRENT} --dryrun  --outputdir testResultWeb ${TESTPATH}"
-                    echo "test"
+                    echo "Done Set Github Status"
                 }
             }
             post {
