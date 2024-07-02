@@ -14,21 +14,21 @@ pipeline {
                     
                     echo "test"
                     sh "pabot --pabotlib ${CONCURRENT} --dryrun  --outputdir testResultWeb ${TESTPATH}"
-                    // common = load "common.groovy"
-                    // common.updateGithubStatus("pending")
+                    common = load "common.groovy"
+                    common.updateGithubStatus("pending")
                 }
             }
             post {
                 always {
                     echo 'Pulish robot framework dryrun test results'
                     robot logFileName: 'log.html', outputFileName: 'output.xml', outputPath: './testResultWeb', reportFileName: 'report.html'
-                    // script{
-                    //     if("${currentBuild.currentResult}" == 'SUCCESS') {
-                    //         common.updateGithubStatus("success")
-                    //     } else {
-                    //         common.updateGithubStatus("failure")
-                    //     }
-                    // }
+                    script{
+                        if("${currentBuild.currentResult}" == 'SUCCESS') {
+                            common.updateGithubStatus("success")
+                        } else {
+                            common.updateGithubStatus("failure")
+                        }
+                    }
                 }
             }
         }

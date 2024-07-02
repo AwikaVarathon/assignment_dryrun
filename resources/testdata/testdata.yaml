@@ -1,0 +1,6 @@
+browser:
+ url: "https://nejavu.com/"
+ type: "chrome"
+
+tc_01:
+ book_name: "เครยอน ชินจัง" 
