@@ -13,10 +13,12 @@ pipeline {
             }
             post {
                 always {
-                    if("${currentBuild.currentResult}" == 'SUCCESS') {
-                        common.updateGithubStatus("success")
-                    } else {
-                        common.updateGithubStatus("failure")
+                    script{
+                        if("${currentBuild.currentResult}" == 'SUCCESS') {
+                            common.updateGithubStatus("success")
+                        } else {
+                            common.updateGithubStatus("failure")
+                        }
                     }
                 }
             }
