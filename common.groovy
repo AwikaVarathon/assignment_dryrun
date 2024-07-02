@@ -1,10 +1,18 @@
 def updateGithubStatus(state){
-    withCredentials([usernamePassword(credentialsId: 'github_assignment_dryrun', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
-        sh """
-            curl --location 'https://api.GitHub.com/repos/${USER}/assignment_dryrun/statuses/${GIT_COMMIT}?=null' \
-            --header 'Content-Type: application/json' \
-            --header 'Authorization: Bearer ${PASSWORD}' \
-            --data '{"state": "${state}", "context": "Dryrun", "description": "Jenkins", "target_url": "${BUILD_URL}"}'
-        """
+    echo "Update Github Status: ${state}"
+    try {
+        withCredentials([usernamePassword( credentialsId: 'github_assignment_dryrun', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
+            sh """
+                curl --location 'https://api.GitHub.com/repos/${USER}/assignment_dryrun/statuses/${GIT_COMMIT}?=null' \
+                --header 'Content-Type: application/json' \
+                --header 'Authorization: Bearer ${PASSWORD}' \
+                --data '{"state": "${state}", "context": "Dryrun", "description": "Jenkins", "target_url": "${BUILD_URL}"}'
+            """
+        }
+        return true
+    }// end try
+    catch (err_robocop){
+        echo "Found exception dryrun and robocop : ${err_robocop}"
+        return false
     }
 }
