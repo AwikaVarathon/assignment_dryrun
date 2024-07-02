@@ -1,14 +1,14 @@
 def updateGithubStatus(state){
     echo "Update Github Status: ${state}"
     try {
-        withCredentials([usernamePassword( credentialsId: 'github_assignment_dryrun', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
-            sh """
-                curl --location 'https://api.GitHub.com/repos/${USER}/assignment_dryrun/statuses/${GIT_COMMIT}?=null' \
-                --header 'Content-Type: application/json' \
-                --header 'Authorization: Bearer ${PASSWORD}' \
-                --data '{"state": "${state}", "context": "Dryrun", "description": "Jenkins", "target_url": "${BUILD_URL}"}'
-            """
-        }
+        // withCredentials([usernamePassword( credentialsId: 'github_assignment_dryrun', usernameVariable: 'USER', passwordVariable: 'PASSWORD')]) {
+        //     sh """
+        //         curl --location 'https://api.GitHub.com/repos/${USER}/assignment_dryrun/statuses/${GIT_COMMIT}?=null' \
+        //         --header 'Content-Type: application/json' \
+        //         --header 'Authorization: Bearer ${PASSWORD}' \
+        //         --data '{"state": "${state}", "context": "Dryrun", "description": "Jenkins", "target_url": "${BUILD_URL}"}'
+        //     """
+        // }//end withCredentials
         return true
     }// end try
     catch (err_robocop){
