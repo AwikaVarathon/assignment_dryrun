@@ -7,7 +7,7 @@ pipeline {
             steps {
                 script{
                     common = load "common.groovy"
-                    common.updateGithubStatus("pending")
+                    common.updateGithubStatus()
                     echo "Done Set Github Status"
                 }
             }
@@ -15,9 +15,9 @@ pipeline {
                 always {
                     script{
                         if("${currentBuild.currentResult}" == 'SUCCESS') {
-                            common.updateGithubStatus("success")
+                            common.updateGithubStatus()
                         } else {
-                            common.updateGithubStatus("failure")
+                            common.updateGithubStatus()
                         }
                     }
                 }
